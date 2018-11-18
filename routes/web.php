@@ -23,4 +23,4 @@ Route::get('/user/{user_id}/profile/{profile_id}', 'ProfileController@show')->na
 
 Route::resources([
         'questions' => 'QuestionController',
-    ]);
+]);
