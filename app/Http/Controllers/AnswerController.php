@@ -7,6 +7,7 @@ use App\Answer;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\BuildAnswer;
+use App\Notifications\EditAnswer;
 
 use Illuminate\Http\Request;
 
@@ -110,11 +111,18 @@ class AnswerController extends Controller
 
         ]);
 
+        $user = Auth::user();
         $answer = Answer::find($answer);
         $answer->body = $request->body;
         $answer->save();
 
-        return redirect()->route('answers.show',['question_id' => $question, 'answer_id' => $answer])->with('message', 'Updated');
+        $user->notify(new EditAnswer());
+
+        return view('notification');
+
+
+
+        //return redirect()->route('answers.show',['question_id' => $question, 'answer_id' => $answer])->with('message', 'Updated');
 
     }
 
