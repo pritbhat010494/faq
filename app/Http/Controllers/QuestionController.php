@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\BuildQuestion;
 
 class QuestionController extends Controller
 {
@@ -47,11 +49,17 @@ class QuestionController extends Controller
             'body.required' => 'Body is required',
             'body.min' => 'Body must be at least 5 characters',
         ]);
+
+        $user = Auth::user();
         $input = request()->all();
         $question = new Question($input);
         $question->user()->associate(Auth::user());
         $question->save();
-        return redirect()->route('home')->with('message', 'IT WORKS!');
+
+        $user->notify(new BuildQuestion());
+
+        return view('notification');
+        //return redirect()->route('home')->with('message', 'IT WORKS!');
         // return redirect()->route('questions.show', ['id' => $question->id]);
     }
     /**
