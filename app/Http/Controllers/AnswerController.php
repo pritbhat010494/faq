@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Answer;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\BuildAnswer;
 
 use Illuminate\Http\Request;
 
@@ -48,6 +50,7 @@ class AnswerController extends Controller
             'body.min' => 'Body must be at least 5 characters',
 
         ]);
+        $user = Auth::user();
         $input = request()->all();
         $question = Question::find($question);
         $Answer = new Answer($input);
@@ -55,7 +58,11 @@ class AnswerController extends Controller
         $Answer->question()->associate($question);
         $Answer->save();
 
-        return redirect()->route('questions.show',['question_id' => $question->id])->with('message', 'Saved');
+        $user->notify(new BuildAnswer());
+
+        return view('notification');
+
+       // return redirect()->route('questions.show',['question_id' => $question->id])->with('message', 'Saved');
     }
 
     /**
