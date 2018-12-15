@@ -44,7 +44,7 @@ class EditQuestion extends Notification
         $qpath=$cquestion->path();
         $dpath=explode("/",$qpath);
         return (new MailMessage)
-            ->line('You have just edited a   Question.')
+            ->line('You have just edited a  Question.')
             ->action('View Question', app_path('questions', $dpath))
             ->line('Thank you for using Laravel!');
     }
