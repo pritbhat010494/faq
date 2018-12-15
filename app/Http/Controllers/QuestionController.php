@@ -7,6 +7,7 @@ use App\User;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\BuildQuestion;
+use App\Notifications\EditQuestion;
 
 class QuestionController extends Controller
 {
@@ -99,9 +100,15 @@ class QuestionController extends Controller
             'body.required' => 'Body is required',
             'body.min' => 'Body must be at least 5 characters',
         ]);
+
+        $user = Auth::user();
         $question->body = $request->body;
         $question->save();
-        return redirect()->route('questions.show',['question_id' => $question->id])->with('message', 'Saved');
+
+        $user->notify(new EditQuestion());
+
+        return view('notification');
+       // return redirect()->route('questions.show',['question_id' => $question->id])->with('message', 'Saved');
     }
     /**
      * Remove the specified resource from storage.
