@@ -28,6 +28,7 @@ class ENotification extends Mailable
      */
     public function build()
     {
+        return $this->from('donotreply@qwerty.com');
         return $this->view('view.name');
     }
 }
