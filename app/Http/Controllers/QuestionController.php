@@ -59,10 +59,11 @@ class QuestionController extends Controller
         $question->save();
 
         $user->notify(new BuildQuestion());
-
-        return view('notification');
-        //return redirect()->route('home')->with('message', 'IT WORKS!');
-        // return redirect()->route('questions.show', ['id' => $question->id]);
+    //dd(notify());
+     return view('notification');
+       //return redirect()->route('home')->with('message', 'Hello, You are being notified. Please check your email !
+       // Thank You!');
+        // return redirect()->route('notification.show', ['id' => $question->id]);
     }
     /**
      * Display the specified resource.
@@ -109,7 +110,7 @@ class QuestionController extends Controller
         $user->notify(new EditQuestion());
 
         return view('notification');
-       // return redirect()->route('questions.show',['question_id' => $question->id])->with('message', 'Saved');
+      // return redirect()->route('questions.show',['question_id' => $question->id])->with('message', 'Saved');
     }
     /**
      * Remove the specified resource from storage.
@@ -124,8 +125,8 @@ class QuestionController extends Controller
 
         $user->notify(new DeleteQuestion());
 
-        return view('notification');
+       return view('notification');
 
-        //return redirect()->route('home')->with('message', 'Deleted');
+       // return redirect()->route('home')->with('message', 'Deleted');
     }
 }
