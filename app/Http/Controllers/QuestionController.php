@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\DeleteQuestion;
 use Illuminate\Http\Request;
 use App\User;
 use App\Question;
@@ -118,7 +119,13 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
+        $user = Auth::user();
         $question->delete();
-        return redirect()->route('home')->with('message', 'Deleted');
+
+        $user->notify(new DeleteQuestion());
+
+        return view('notification');
+
+        //return redirect()->route('home')->with('message', 'Deleted');
     }
 }
