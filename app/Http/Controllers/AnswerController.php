@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\DeleteAnswer;
 use App\User;
 use App\Answer;
 use App\Question;
@@ -134,10 +135,15 @@ class AnswerController extends Controller
      */
     public function destroy($question, $answer)
     {
+        $user = Auth::user();
         $answer = Answer::find($answer);
 
         $answer->delete();
-        return redirect()->route('questions.show',['question_id' => $question])->with('message', 'Deleted');
+
+        $user->notify(new DeleteAnswer());
+
+        return view('notification');
+      //  return redirect()->route('questions.show',['question_id' => $question])->with('message', 'Deleted');
 
     }
 }
