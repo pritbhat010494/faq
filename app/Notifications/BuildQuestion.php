@@ -2,10 +2,16 @@
 
 namespace App\Notifications;
 
+use App\User;
+use App\Question;
+use App\Answer;
+use Illuminate\Http\Request;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Auth;
 
 class BuildQuestion extends Notification
 {
@@ -40,13 +46,10 @@ class BuildQuestion extends Notification
      */
     public function toMail($notifiable)
     {
-        $cquestion=\Request::capture();
-        $qpath=$cquestion->path();
-        $dpath=explode("/",$qpath);
         return (new MailMessage)
-                    ->line('You have just created a new Question.')
-                    ->action('View Question', app_path('questions', $dpath))
-                    ->line('Thank you for using Laravel!');
+            ->line('You have just created a new Question.')
+            ->action('View Question', url('/'))
+            ->line('Thank you for using Laravel!');
     }
 
     /**

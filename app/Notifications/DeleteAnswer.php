@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Http\Request;
 
 class DeleteAnswer extends Notification
 {
@@ -40,12 +41,13 @@ class DeleteAnswer extends Notification
      */
     public function toMail($notifiable)
     {
-        $delanswer=\Request::capture();
-        $apath=$delanswer->path();
-        $dpath=explode("/",$apath);
+
+        $request = Request::capture();
+        $path = $request->path();
+        $string_path = explode("/", $path);
         return (new MailMessage)
             ->line('You have just deleted your answer.')
-            ->action('Please Check', app_path('questions', $dpath))
+            ->action('Please Check', \route('home', $string_path[1]))
             ->line('Thank you for using Laravel!');
     }
 

@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -40,15 +41,15 @@ class EditAnswer extends Notification
      */
     public function toMail($notifiable)
     {
-        $canswer=\Request::capture();
-        $apath=$canswer->path();
-        $dpath=explode("/",$apath);
-        return (new MailMessage)
-                    ->line('You have just edited your answer')
-                    ->action('View Answer', app_path('questions.show', $dpath))
-                    ->line('Thank you for using Laravel!');
-    }
 
+        $request = Request::capture();
+        $path = $request->path();
+        $string_path = explode("/", $path);
+        return (new MailMessage)
+            ->line('You have just edited your answer')
+            ->action('View Answer', \route('questions.show', $string_path[1]))
+            ->line('Thank you for using Laravel!');
+    }
     /**
      * Get the array representation of the notification.
      *

@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Http\Request;
 
 class BuildAnswer extends Notification
 {
@@ -40,12 +41,12 @@ class BuildAnswer extends Notification
      */
     public function toMail($notifiable)
     {
-        $canswer=\Request::capture();
-        $apath=$canswer->path();
-        $dpath=explode("/",$apath);
+        $request = Request::capture();
+        $path = $request->path();
+        $string_path = explode("/", $path);
         return (new MailMessage)
-            ->line('Your question has been answered')
-            ->action('View Answer', app_path('questions.show', $dpath))
+            ->line('You have just answered a question')
+            ->action('View Answer', \route('questions.show', $string_path[1]))
             ->line('Thank you for using Laravel!');
     }
 

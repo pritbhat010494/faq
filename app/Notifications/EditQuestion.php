@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Http\Request;
 
 class EditQuestion extends Notification
 {
@@ -40,13 +41,15 @@ class EditQuestion extends Notification
      */
     public function toMail($notifiable)
     {
-        $cquestion=\Request::capture();
-        $qpath=$cquestion->path();
-        $dpath=explode("/",$qpath);
+
+        $request = Request::capture();
+        $path = $request->path();
+        $string_path = explode("/", $path);
         return (new MailMessage)
-            ->line('You have just edited a  Question.')
-            ->action('View Question', app_path('questions', $dpath))
+            ->line('You have just edited a Question.')
+            ->action('View Question', \route('questions.show', $string_path[1]))
             ->line('Thank you for using Laravel!');
+
     }
 
     /**
