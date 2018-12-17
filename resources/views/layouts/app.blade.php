@@ -28,7 +28,7 @@
 
             @guest
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('app.name', 'Email Notification') }}
                 </a>
             @else
                 <a class="navbar-brand" href="{{ route('home') }}">
