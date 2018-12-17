@@ -27,13 +27,24 @@ class EditAnswerTest extends DuskTestCase
                 ->press('button[type="submit"]')
                 ->assertSee('Questions')
                 ->clickLink('View')
-                /*->assertsee('Answer Question')
+                ->assertSee('Question')
+                ->clickLink('Answer Question')
+                ->assertSee('Create Answer')
+                ->type('#body', 'Welcome Pritam!')
+                ->press('#submit')
+                ->assertSee('Hello, You are being notified. Please check your email !
+Thank You!')
+                ->clickLink('Home')
+                ->assertSee('Questions')
+                ->clickLink('View')
+                ->assertSee('Question')
+                ->assertSee('Answer Question')
                 ->clickLink('View')
                 ->clickLink('Edit Answer')
                 ->type('#body', 'We welcome you')
                 ->press('#submit')
                 ->assertSee('Hello, You are being notified. Please check your email !
-Thank You!')*/
+Thank You!')
                 ->press('#navbarDropdown')
                 ->clickLink('Logout')
                 ->assertTitle('Laravel');
