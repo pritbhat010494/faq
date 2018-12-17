@@ -23,9 +23,9 @@ f. Answers are deleted<br>
 Note:Sendgrid (https://sendgrid.com/ ) is used for sending emails to users.<br>
 
 1. Only registered users can login into the application and recieve email notifications.<br>
-2. User is notified when their questions are created and answered.<br>
+2. User recieves email when questions are created and answered.<br>
 3. User is redirected to the application when he clicks on 'View Question'/View Answer' button in his notified email.<br>
-4. User is notified when their questions and answers are edited or deleted.<br>
+4. User recieves email when questions and answers are edited or deleted.<br>
 5. User are redirected to notification page whenever they make changes to questions and answers which tells them they are been notified on their email.
 
 <h1>Epic2</h1>
